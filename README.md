@@ -9,7 +9,7 @@ https://copr.fedoraproject.org/coprs/mgruener/opensmtpd-extras/
 Thanks
 -------
 
-Base on
+Based on
 - Debian [opensmtpd-extras](https://anonscm.debian.org/cgit/collab-maint/opensmtpd-extras.git/tree/debian)
 - Fedora [opensmtpd](https://apps.fedoraproject.org/packages/opensmtpd/overview/)
 
