@@ -12,5 +12,5 @@ install:
   - docker rm build
 
 script:
-  - docker run -it --rm build -v .:/root/rpmbuild /usr/bin/spectool -R -g /root/rpmbuild/SPECS/*.spec
-  - docker run -it --rm build -v .:/root/rpmbuild /usr/bin/rpmbuild -bs /root/rpmbuild/SPECS/*.spec
+  - docker run -it --rm -v .:/root/rpmbuild build /usr/bin/spectool -R -g /root/rpmbuild/SPECS/*.spec
+  - docker run -it --rm -v .:/root/rpmbuild build /usr/bin/rpmbuild -bs /root/rpmbuild/SPECS/*.spec
