@@ -1,0 +1,17 @@
+{
+  "package": {
+    "name": "opensmtpd-extras",
+    "repo": "opensmtpd-extras",
+    "subject": "mgruener"
+  },
+  "version": {
+    "name": "master"
+  },
+  "files": [
+    {
+      "includePattern": "SRPMS/(.*)",
+      "uploadPattern": "$1"
+    }
+  ],
+  "publish": true
+}

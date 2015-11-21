@@ -1,16 +1,20 @@
 sudo: required
-
 services:
-  - docker
-
+- docker
 before_install:
-  - docker pull fedora
-
+- docker pull fedora
 install:
-  - docker run -it --name build fedora /usr/bin/dnf -y install rpm-build rpmdevtools
-  - docker commit build build
-  - docker rm build
-
+- docker run -it --name build fedora /usr/bin/dnf -y install rpm-build rpmdevtools
+- docker commit build build
+- docker rm build
 script:
-  - docker run -it --rm -v $(pwd):/root/rpmbuild build /usr/bin/spectool -R -g /root/rpmbuild/SPECS/opensmtpd-extras.spec
-  - docker run -it --rm -v $(pwd):/root/rpmbuild build /usr/bin/rpmbuild -bs /root/rpmbuild/SPECS/opensmtpd-extras.spec
+- docker run -it --rm -v $(pwd):/root/rpmbuild build /usr/bin/spectool -R -g /root/rpmbuild/SPECS/opensmtpd-extras.spec
+- docker run -it --rm -v $(pwd):/root/rpmbuild build /usr/bin/rpmbuild -bs /root/rpmbuild/SPECS/opensmtpd-extras.spec
+deploy:
+  provider: bintray
+  file: bintray.json
+  user: mgruener
+  key:
+    secure: hek9sbT7uYargeY5XhmWCGDxxFiZThIj38vaBktX6MzLTrOpUTJfBVbArTvR4QPCxtLxBIfrq+YOLLs4yyDpfnjfO9sh3pyrAc1q1lgZ4las+RwXNmVKUR6y23zlvJni3IxN7Ad70ke2aoCekNSKWbe/BWR1pzu+qpMULn0caHP6FkOZth/B+GAJE5Tlc/9vgv2UdnqojGiyWyp2dehyZPGwPStiIqKTf9JFfMU0Qi7ABOesQWyn2HWgabg62i9W80exy1neubUVp94z7K5Odo4c4pxxsdAstA2tbctbmJA9819LN0PPcaWHUrEV0IA0StG1cBQMyvtdtFkgY2rFymLQzwix81KuCQE0/nEf2+cKGYqef3klLgE03+srK0K86QBzdl0efEKX1LvY3FASeyIVBP071PzNTzYxkwsrzPPOHz57WMobhDaL9TQ3jnqYn4oRg0uPiPT+khdfaNMMhh4asXZO2c1TO1fKaJC7AtEBt5ZPb62sT1k36xoyNMatT0Ukx+QORCOCp9HZr3fUzJMJwm9CtJcmQDMMzXadrromCaUbbA6h5z9+j0xok1+Qv3y73Z0gQSA4B1F72OEqx0VSQrBD3b+2sthc0mTR0lRtKJBFyXIZdrwVIH2xpH5VuBLzELEXOHNrsgTbgZKo8uNjzjX/MdCzPiHByonzkEE=
+  dry-run: false
+  on: master
