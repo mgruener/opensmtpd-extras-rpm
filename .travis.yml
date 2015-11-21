@@ -1,0 +1,16 @@
+sudo: required
+
+services:
+  - docker
+
+before_install:
+  - docker pull fedora
+
+install:
+  - docker run -it --name build fedora /usr/bin/dnf -y install rpm-build rpmdevtools
+  - docker commit build build
+  - docker rm build
+
+script:
+  - docker run -it --rm build -v .:/root/rpmbuild /usr/bin/spectool -R -g /root/rpmbuild/SPECS/*.spec
+  - docker run -it --rm build -v .:/root/rpmbuild /usr/bin/rpmbuild -bs /root/rpmbuild/SPECS/*.spec
