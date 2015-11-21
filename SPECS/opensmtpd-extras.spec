@@ -1,13 +1,20 @@
+%if (0%{?rhel} >= 7) || (0%{?fedora})
+%global luaver luajit
+%global mysqlver mariadb
+%else
+%global luaver lua
+%global mysqlver mysql
+%endif
+
 Name:		opensmtpd-extras
 Version:	5.7.1
-Release:	1%{?dist}
+Release:	3%{?dist}
 Summary:	addons for the OpenSMTPD SMTP server
 
 Group:		System Environment/Daemons
 License:	ISC
 URL:		http://www.opensmtpd.org/
 Source0:	http://www.opensmtpd.org/archives/%{name}-%{version}.tar.gz
-#Source0:	https://github.com/OpenSMTPD/OpenSMTPD-extras/archive/%{name}-%{version}.tar.gz
 
 Patch0: 01_install_man.diff
 Patch1: 02_table_sqlite.5.diff
@@ -17,11 +24,11 @@ BuildRequires: libtool
 BuildRequires: openssl-devel
 BuildRequires: libevent-devel
 BuildRequires: libasr-devel
-BuildRequires: luajit-devel
+BuildRequires: %{luaver}-devel
 BuildRequires: perl(ExtUtils::Embed)
 BuildRequires: python-devel
 BuildRequires: postgresql-devel
-BuildRequires: mariadb-devel
+BuildRequires: %{mysqlver}-devel
 BuildRequires: sqlite-devel
 BuildRequires: hiredis-devel
 
@@ -114,6 +121,10 @@ Summary: This package provides the python addons for OpenSMTPD.
 %patch0 -p1
 %patch1 -p1
 
+# necessary because we are patching makefiles
+aclocal -I m4
+autoconf
+
 %build
 export CFLAGS="%{optflags}"
 export LDFLAGS=-L%{_libdir}/mysql
@@ -123,7 +134,7 @@ export LDFLAGS=-L%{_libdir}/mysql
     --with-mantype=man \
     --with-privsep-user=smtpd \
     --with-privsep-path=%{_localstatedir}/empty/smtpd \
-    --with-lua-type=luajit \
+    --with-lua-type=%{luaver} \
     --with-filter-clamav \
     --with-filter-dkim-signer \
     --with-filter-dnsbl \
@@ -214,5 +225,12 @@ make %{?_smp_mflags}
 %{_libexecdir}/opensmtpd/scheduler-python
 
 %changelog
+* Sat Nov 21 2015 Michael Gruener <michael.gruener@chaosmoon.net> - 5.7.1-3
+- add compatibility to CentOS / RHEL 6
+
+* Sat Nov 21 2015 Michael Gruener <michael.gruener@chaosmoon.net> - 5.7.1-2
+- ensure autotools compatibility by calling aclocal / autoconf
+- remove comment with macro (fixes warning)
+
 * Sat Nov 21 2015 Michael Gruener <michael.gruener@chaosmoon.net> - 5.7.1-1
 - Initial release
