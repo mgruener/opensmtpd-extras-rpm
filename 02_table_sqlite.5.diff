@@ -1,0 +1,19 @@
+Source: https://anonscm.debian.org/cgit/collab-maint/opensmtpd-extras.git/plain/debian/patches/02_table_sqlite.5.diff
+Description: Fix error from man
+Author: Ryan Kavanagh <rak@debian.org>
+Origin: Debian
+Forwarded: no
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+diff --git a/extras/wip/tables/table-sqlite/table_sqlite.5 b/extras/wip/tables/table-sqlite/table_sqlite.5
+index e707cc3..04fd767 100644
+--- a/extras/wip/tables/table-sqlite/table_sqlite.5
++++ b/extras/wip/tables/table-sqlite/table_sqlite.5
+@@ -74,7 +74,6 @@ encrypt command.
+ .Xr encrypt 1
+ .Dl format.
+ .Pp
+-
+ .Sh SEE ALSO
+ .Xr encrypt 1 ,
+ .Xr smtpd.conf 5 ,

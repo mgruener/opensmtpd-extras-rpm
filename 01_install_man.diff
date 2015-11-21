@@ -1,0 +1,137 @@
+Source: https://anonscm.debian.org/cgit/collab-maint/opensmtpd-extras.git/tree/debian/patches/01_install_man.diff
+Description: Install manpages
+Author: Ryan Kavanagh <rak@debian.org>
+Origin: Debian
+Forwarded: no
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+Index: opensmtpd-extras/extras/wip/filters/Makefile.am
+===================================================================
+--- opensmtpd-extras.orig/extras/wip/filters/Makefile.am	2015-11-01 14:27:01.184561031 -0500
++++ opensmtpd-extras/extras/wip/filters/Makefile.am	2015-11-01 14:27:01.180560907 -0500
+@@ -51,3 +51,5 @@
+ if HAVE_FILTER_VOID
+ SUBDIRS	+=	filter-void
+ endif
++
++man3_MANS = filter_api.3
+Index: opensmtpd-extras/extras/wip/filters/filter-clamav/Makefile.am
+===================================================================
+--- opensmtpd-extras.orig/extras/wip/filters/filter-clamav/Makefile.am	2015-11-01 14:27:01.184561031 -0500
++++ opensmtpd-extras/extras/wip/filters/filter-clamav/Makefile.am	2015-11-01 14:27:01.180560907 -0500
+@@ -5,3 +5,5 @@
+ 
+ filter_clamav_SOURCES	 = $(SRCS)
+ filter_clamav_SOURCES	+= filter_clamav.c
++
++man8_MANS = filter-clamav.8
+Index: opensmtpd-extras/extras/wip/filters/filter-dnsbl/Makefile.am
+===================================================================
+--- opensmtpd-extras.orig/extras/wip/filters/filter-dnsbl/Makefile.am	2015-11-01 14:27:01.184561031 -0500
++++ opensmtpd-extras/extras/wip/filters/filter-dnsbl/Makefile.am	2015-11-01 14:27:01.180560907 -0500
+@@ -9,3 +9,5 @@
+ if !NO_LIBASR
+ LDADD	 += -lasr
+ endif
++
++man8_MANS = filter-dnsbl.8
+Index: opensmtpd-extras/extras/wip/filters/filter-monkey/Makefile.am
+===================================================================
+--- opensmtpd-extras.orig/extras/wip/filters/filter-monkey/Makefile.am	2015-11-01 14:27:01.184561031 -0500
++++ opensmtpd-extras/extras/wip/filters/filter-monkey/Makefile.am	2015-11-01 14:27:01.180560907 -0500
+@@ -5,3 +5,5 @@
+ 
+ filter_monkey_SOURCES	 = $(SRCS)
+ filter_monkey_SOURCES	+= $(filters_srcdir)/filter-monkey/filter_monkey.c
++
++man8_MANS = filter-monkey.8
+Index: opensmtpd-extras/extras/wip/filters/filter-pause/Makefile.am
+===================================================================
+--- opensmtpd-extras.orig/extras/wip/filters/filter-pause/Makefile.am	2015-11-01 14:27:01.184561031 -0500
++++ opensmtpd-extras/extras/wip/filters/filter-pause/Makefile.am	2015-11-01 14:27:01.180560907 -0500
+@@ -5,3 +5,5 @@
+ 
+ filter_pause_SOURCES	 = $(SRCS)
+ filter_pause_SOURCES	+= filter_pause.c
++
++man8_MANS = filter-pause.8
+Index: opensmtpd-extras/extras/wip/filters/filter-regex/Makefile.am
+===================================================================
+--- opensmtpd-extras.orig/extras/wip/filters/filter-regex/Makefile.am	2015-11-01 14:27:01.184561031 -0500
++++ opensmtpd-extras/extras/wip/filters/filter-regex/Makefile.am	2015-11-01 14:27:01.180560907 -0500
+@@ -5,3 +5,5 @@
+ 
+ filter_regex_SOURCES	 = $(SRCS)
+ filter_regex_SOURCES	+= $(filters_srcdir)/filter-regex/filter_regex.c
++
++man8_MANS = filter-regex.8
+Index: opensmtpd-extras/extras/wip/filters/filter-spamassassin/Makefile.am
+===================================================================
+--- opensmtpd-extras.orig/extras/wip/filters/filter-spamassassin/Makefile.am	2015-11-01 14:27:01.184561031 -0500
++++ opensmtpd-extras/extras/wip/filters/filter-spamassassin/Makefile.am	2015-11-01 14:27:01.180560907 -0500
+@@ -5,3 +5,5 @@
+ 
+ filter_spamassassin_SOURCES	 = $(SRCS)
+ filter_spamassassin_SOURCES	+= filter_spamassassin.c
++
++man8_MANS = filter-spamassassin.8
+Index: opensmtpd-extras/extras/wip/filters/filter-stub/Makefile.am
+===================================================================
+--- opensmtpd-extras.orig/extras/wip/filters/filter-stub/Makefile.am	2015-11-01 14:27:01.184561031 -0500
++++ opensmtpd-extras/extras/wip/filters/filter-stub/Makefile.am	2015-11-01 14:27:01.180560907 -0500
+@@ -5,3 +5,5 @@
+ 
+ filter_stub_SOURCES	 = $(SRCS)
+ filter_stub_SOURCES	+= $(filters_srcdir)/filter-stub/filter_stub.c
++
++man8_MANS = filter-stub.8
+Index: opensmtpd-extras/extras/wip/filters/filter-trace/Makefile.am
+===================================================================
+--- opensmtpd-extras.orig/extras/wip/filters/filter-trace/Makefile.am	2015-11-01 14:27:01.184561031 -0500
++++ opensmtpd-extras/extras/wip/filters/filter-trace/Makefile.am	2015-11-01 14:27:01.180560907 -0500
+@@ -5,3 +5,5 @@
+ 
+ filter_trace_SOURCES	 = $(SRCS)
+ filter_trace_SOURCES	+= $(filters_srcdir)/filter-trace/filter_trace.c
++
++man8_MANS = filter-trace.8
+Index: opensmtpd-extras/extras/wip/filters/filter-void/Makefile.am
+===================================================================
+--- opensmtpd-extras.orig/extras/wip/filters/filter-void/Makefile.am	2015-11-01 14:27:01.184561031 -0500
++++ opensmtpd-extras/extras/wip/filters/filter-void/Makefile.am	2015-11-01 14:27:01.180560907 -0500
+@@ -5,3 +5,5 @@
+ 
+ filter_void_SOURCES	 = $(SRCS)
+ filter_void_SOURCES	+= $(filters_srcdir)/filter-void/filter_void.c
++
++man8_MANS = filter-void.8
+Index: opensmtpd-extras/extras/wip/tables/table-passwd/Makefile.am
+===================================================================
+--- opensmtpd-extras.orig/extras/wip/tables/table-passwd/Makefile.am	2015-11-01 14:27:01.184561031 -0500
++++ opensmtpd-extras/extras/wip/tables/table-passwd/Makefile.am	2015-11-01 14:27:01.180560907 -0500
+@@ -5,3 +5,5 @@
+ 
+ table_passwd_SOURCES	 = $(SRCS)
+ table_passwd_SOURCES	+= $(tables_srcdir)/table-passwd/table_passwd.c
++
++man5_MANS = table_passwd.5
+Index: opensmtpd-extras/extras/wip/tables/table-socketmap/Makefile.am
+===================================================================
+--- opensmtpd-extras.orig/extras/wip/tables/table-socketmap/Makefile.am	2015-11-01 14:27:01.184561031 -0500
++++ opensmtpd-extras/extras/wip/tables/table-socketmap/Makefile.am	2015-11-01 14:27:01.180560907 -0500
+@@ -5,3 +5,5 @@
+ 
+ table_socketmap_SOURCES	 = $(SRCS)
+ table_socketmap_SOURCES	+= $(tables_srcdir)/table-socketmap/table_socketmap.c
++
++man5_MANS = table_socketmap.5
+Index: opensmtpd-extras/extras/wip/tables/table-sqlite/Makefile.am
+===================================================================
+--- opensmtpd-extras.orig/extras/wip/tables/table-sqlite/Makefile.am	2015-11-01 14:27:01.184561031 -0500
++++ opensmtpd-extras/extras/wip/tables/table-sqlite/Makefile.am	2015-11-01 14:27:01.180560907 -0500
+@@ -7,3 +7,5 @@
+ table_sqlite_SOURCES	+= $(tables_srcdir)/table-sqlite/table_sqlite.c
+ 
+ LDADD	+= -lsqlite3
++
++man5_MANS = table_sqlite.5
