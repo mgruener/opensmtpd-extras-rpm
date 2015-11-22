@@ -17,7 +17,7 @@ script:
 - ${DOCKER_CMD} mgruener/rpmbuild /usr/bin/rpmbuild -bs rpmbuild/SPECS/opensmtpd-extras.spec
 - sudo chmod -R 0777 SRPMS
 - ln -r -s SRPMS/*.rpm SRPMS/opensmtpd-extras-${TRAVIS_COMMIT}.src.rpm
-- travis_wait ${DOCKER_CMD}
+- ${DOCKER_CMD}
   -e COPR_LOGIN=$COPR_LOGIN
   -e COPR_USERNAME=$COPR_USERNAME 
   -e COPR_TOKEN=$COPR_TOKEN 
