@@ -9,15 +9,18 @@ env:
   global:
   - COPR_USERNAME=mgruener
   - COPR_COPR_URL=https://copr.fedoraproject.org
+  - DOCKER_CMD="docker run -it --rm -v $(pwd):/home/rpmbuild/rpmbuild"
   - secure: ZEo3TB8wtAjQmSFrAXcoZXMuNs9wzNpv9JyiSlGzND3ewPgzk++MZocrX7W9arrdq7Eyw0ew/PSnRHH4v+9HXL6aNJpzaGaxwzggRZVFREA1KfJsWEgieXBKFWMGpN9W2+HSHF5oXlzmJ9Okg3EJR7ugMdOem5qA5x9N7/Z1KUJmHWmpSCXWD5o34VuXlMGy6ptfNuvmZLnrW3fT8YnNX17YSchbog3sg1tVchsvcQmSWGtwSYCRCs+aJNJfVPDicUpVn3cNB76GV8T6eW28EPiRjmeEPnU/NQjYVR9WD65EY8mACspjbnFo+aHiy7LrihFCE+pAV3wIplnGOPtBIrtFsUhtqBEIlkas4vYPXXjGBe1v5mDpmdtcizik3odQtivTePpggexftQXP3qjK+wfpXQjghap4AUWcenhtdEWLD7ARUq3Mx/q/uWz5wzgo2oJBXm5QJJnfMuaAOKasFge6HiKMzl1cRGDuH5wRBBr7bCtaLkPdYQZ/6aOvEkwY2hhFAJOBtY0hh7v4AvN0phw15XM6O/1wHIAxuC2QRbUeUNcvURT3PUIglwrnOputyWQAsI1CcU25cGA16qJF7lYRVzF2XYQ6iEbs6jve/yemr42bX6W9F06EqiTgNS3yuZgp2X5rEsXlVE3yHKzMJjUIfjC13DEl5VYWhTKdDu0=
   - secure: IPWGx4LelAhyI42+bKrwKLV6BfKBZJsHQCVLZcXdf6X0Dxlt54ThOwpVlhKHgZZ3/WDf2Pc4/+TctRpZPLPgJyDeWjTV2xdIDXIWlrf9kOQpkSn6SMCg77GjgJuiRavPTCMiV3Ezy/R5HYw9hEIIh05mR5nnXHzWxZ6KnWUeP+TNwRO2ijqlTDw1wURAVW0WGyXEp1zJfGnumKWtGz2IrE0Y6o55dFT35Q6OOc+Wj+x19ZbmhVpBGVfbcYCkRm0dvATVepvEPVMO27zuLnZ50YDIfOVMLierlyxp0cnAAPTWYpompnDmmSz6dgOpx8Q8YqMcx7tcTc/FM4kFxLN3uXrMDBqmbjycOuF27XaNRXPnFBVl20pUZOyApNZe0wMDc7TveER3qwFw9KQuSeLgjM+gwuxkNpMcBrvQRsLzHxsXYLGcvx3cUO0JpJEEu5N/US5R7ukwun1p8VPJVklFQRn7pEFLgPkEqQUyvQ2yi3WVn9a+WaUGTyPGwTWbd5Ua8gwpPayxobe/XvG66swfEIjy79aiNiLJUrBIt7HA4pDBCFBxS/rkmytRDai+cdfFFeahgMtWl74GSB4e2csPpH3ERq/3pUVTpkI89kvzxihGmPRT3MVBwhefUahMWtJysRqO6+vSELtybskVq6tnKuxuooJrj1r1ol+Alrt9QEM=
 script:
-- docker run -it --rm -v $(pwd):/home/rpmbuild/rpmbuild mgruener/rpmbuild /usr/bin/spectool
-  -R -g rpmbuild/SPECS/opensmtpd-extras.spec
-- docker run -it --rm -v $(pwd):/home/rpmbuild/rpmbuild mgruener/rpmbuild /usr/bin/rpmbuild
-  -bs rpmbuild/SPECS/opensmtpd-extras.spec
+- ${DOCKER_CMD} mgruener/rpmbuild /usr/bin/spectool -R -g rpmbuild/SPECS/opensmtpd-extras.spec
+- ${DOCKER_CMD} mgruener/rpmbuild /usr/bin/rpmbuild -bs rpmbuild/SPECS/opensmtpd-extras.spec
 - sudo chmod -R 0777 SRPMS
-- ln -s SRPMS/*.rpm SRPMS/opensmtpd-extras-$TRAVIS_COMMIT.src.rpm
-- docker run -it --rm -v $(pwd):/home/rpmbuild/rpmbuild -e COPR_LOGIN=$COPR_LOGIN
-  -e COPR_USERNAME=$COPR_USERNAME -e COPR_TOKEN=$COPR_TOKEN -e COPR_COPR_URL=$COPR_URL mgruener/copr-cli build
-  mgruener/opensmtpd-extras rpmbuild/SRPMS/opensmtpd-extras-${TRAVIS_COMMIT}.src.rpm
+- ln -s SRPMS/*.rpm SRPMS/opensmtpd-extras-${TRAVIS_COMMIT}.src.rpm
+- ${DOCKER_CMD}
+  -e COPR_LOGIN=$COPR_LOGIN
+  -e COPR_USERNAME=$COPR_USERNAME 
+  -e COPR_TOKEN=$COPR_TOKEN 
+  -e COPR_COPR_URL=$COPR_URL
+  mgruener/copr-cli
+  build mgruener/opensmtpd-extras rpmbuild/SRPMS/opensmtpd-extras-${TRAVIS_COMMIT}.src.rpm
