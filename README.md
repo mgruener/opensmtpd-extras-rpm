@@ -1,6 +1,8 @@
 OpenSMTPD Extras RPM
 ====================
 
+[![Build Status](https://travis-ci.org/mgruener/opensmtpd-extras-rpm.png?branch=master)](https://travis-ci.org/mgruener/opensmtpd-extras-rpm)
+
 Specfile and other sources to create opensmtpd-extras rpms for Fedora
 CentOS and RHEL. Builds / repositories can be found at
 
