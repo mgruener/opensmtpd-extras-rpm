@@ -8,7 +8,7 @@
 
 Name:		opensmtpd-extras
 Version:	5.7.1
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	addons for the OpenSMTPD SMTP server
 
 Group:		System Environment/Daemons
@@ -31,6 +31,8 @@ BuildRequires: postgresql-devel
 BuildRequires: %{mysqlver}-devel
 BuildRequires: sqlite-devel
 BuildRequires: hiredis-devel
+
+Requires: opensmtpd >= 5.7.3p1
 
 %description
 OpenSMTPD is a FREE implementation of the server-side SMTP protocol as defined
@@ -225,6 +227,9 @@ make %{?_smp_mflags}
 %{_libexecdir}/opensmtpd/scheduler-python
 
 %changelog
+* Sun Nov 22 2015 Michael Gruener <michael.gruener@chaosmoon.net> - 5.7.1-4
+- add dependency for opensmtpd
+
 * Sat Nov 21 2015 Michael Gruener <michael.gruener@chaosmoon.net> - 5.7.1-3
 - add compatibility to CentOS / RHEL 6
 
