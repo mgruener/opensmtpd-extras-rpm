@@ -23,4 +23,4 @@ script:
   -e COPR_TOKEN=$COPR_TOKEN 
   -e COPR_COPR_URL=$COPR_URL
   mgruener/copr-cli
-  build mgruener/opensmtpd-extras /home/rpmbuild/rpmbuild/SRPMS/opensmtpd-extras-${TRAVIS_COMMIT}.src.rpm
+  --debug build mgruener/opensmtpd-extras /home/rpmbuild/rpmbuild/SRPMS/opensmtpd-extras-${TRAVIS_COMMIT}.src.rpm
